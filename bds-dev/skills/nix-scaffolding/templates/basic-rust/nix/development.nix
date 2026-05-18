@@ -1,7 +1,7 @@
 { inputs, ... }:
 
 let
-  inherit (inputs) self nixpkgs crane advisory-db;
+  inherit (inputs) self nixpkgs crane;
 in {
   perSystem = { system, pkgs-dev, lib, ... }: let
     craneLib = crane.mkLib pkgs-dev;
@@ -40,10 +40,6 @@ in {
 
       toml-fmt = craneLib.taploFmt {
         src = lib.sources.sourceFilesBySuffices src [ ".toml" ];
-      };
-
-      audit = craneLib.cargoAudit {
-        inherit src advisory-db;
       };
 
       deny = craneLib.cargoDeny {
